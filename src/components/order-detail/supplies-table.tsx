@@ -57,7 +57,8 @@ export function SuppliesTable({ order }: { order: OrderDetail }) {
               <Th className="text-right">Q-ty</Th>
               <Th className="text-right">Unit $</Th>
               <Th className="text-right">Line total</Th>
-              {editable && <Th>Action</Th>}
+              {/* Once closed there is nothing to edit; the column keeps the invoice note below. */}
+              <Th>{editable ? "Action" : <span className="sr-only">Invoice</span>}</Th>
             </tr>
           </THead>
           <tbody>
@@ -75,8 +76,8 @@ export function SuppliesTable({ order }: { order: OrderDetail }) {
                   <Td className="text-right font-semibold text-ink">{supply.qty}</Td>
                   <Td className="text-right">{formatMoney(supply.unitPriceCents)}</Td>
                   <Td className="text-right font-semibold">{formatMoney(supply.lineTotalCents)}</Td>
-                  {editable && (
-                    <Td>
+                  <Td>
+                    {editable && (
                       <span className="flex items-center gap-0.5 text-ink-faint">
                         <IconButton
                           variant="plain"
@@ -94,8 +95,8 @@ export function SuppliesTable({ order }: { order: OrderDetail }) {
                           <Trash2 aria-hidden />
                         </IconButton>
                       </span>
-                    </Td>
-                  )}
+                    )}
+                  </Td>
                 </Tr>
               );
             })}
@@ -108,9 +109,7 @@ export function SuppliesTable({ order }: { order: OrderDetail }) {
               <Td className="text-right font-bold text-ink">
                 {formatMoney(order.totals.suppliesCents)}
               </Td>
-              {editable && (
-                <Td className="text-2xs whitespace-nowrap text-ink-muted">→ Invoice line items</Td>
-              )}
+              <Td className="text-2xs whitespace-nowrap text-ink-muted">→ Invoice line items</Td>
             </tr>
           </tfoot>
         </Table>

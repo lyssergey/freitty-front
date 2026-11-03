@@ -20,7 +20,7 @@ import { useBackNavigation } from "@/lib/hooks/use-back-navigation";
 
 function InvoiceIndicator({ invoice }: { invoice: OrderDetail["invoice"] }) {
   const state = !invoice
-    ? { label: "Not invoiced yet", className: "text-ink-faint" }
+    ? { label: "Not invoiced yet", className: "text-ink-muted" }
     : invoice.paidAt
       ? { label: `Invoice ${invoiceLabel(invoice.number)} paid`, className: "text-success" }
       : { label: `Invoice ${invoiceLabel(invoice.number)} unpaid`, className: "text-warning" };

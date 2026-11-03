@@ -28,9 +28,14 @@ function renderToasts() {
   };
 }
 
-/** Lets timers and motion's frame loop (enter / exit animations) run. */
+/**
+ * Lets timers and motion's frame loop (enter / exit animations) run — in small steps, so React
+ * renders between them the way it does in real time.
+ */
 async function wait(ms: number) {
-  await act(() => vi.advanceTimersByTimeAsync(ms));
+  for (let elapsed = 0; elapsed < ms; elapsed += 50) {
+    await act(() => vi.advanceTimersByTimeAsync(50));
+  }
 }
 
 beforeEach(() => {
@@ -56,13 +61,17 @@ describe("ToastProvider", () => {
   it("restarts the timer of a repeated message", async () => {
     const { click } = renderToasts();
     click("BOL PDF");
+    const toast = screen.getByText(NOT_IN_DEMO_MESSAGE);
     await wait(2000);
     click("BOL PDF");
-    // 3.5 s after the first toast: without the restart it would have gone at 2.6 s.
-    await wait(1500);
-    expect(screen.getByText(NOT_IN_DEMO_MESSAGE)).toBeInTheDocument();
+    expect(screen.getByText(NOT_IN_DEMO_MESSAGE)).toBe(toast);
 
-    await wait(1500);
+    // 4.5 s after the first toast: without the restart it would have gone at 2.6 s.
+    await wait(2500);
+    expect(toast).toBeInTheDocument();
+
+    // The restarted 2.6 s run out at 4.6 s; then the exit animation.
+    await wait(1000);
     expect(screen.queryByText(NOT_IN_DEMO_MESSAGE)).not.toBeInTheDocument();
   });
 });

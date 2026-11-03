@@ -48,7 +48,12 @@ export function MobileDrawer({ open, onClose, children }: MobileDrawerProps) {
       document.body.style.overflow = overflow;
       document.removeEventListener("keydown", onKeyDown);
       desktop.removeEventListener("change", onBreakpoint);
+      // Back to the hamburger. When it can't take the focus (hidden from `lg` on, after the
+      // window grew) the page's <main> gets it, so keyboard users don't land on <body>.
       previouslyFocused?.focus();
+      if (document.activeElement !== previouslyFocused) {
+        document.getElementById("main")?.focus({ preventScroll: true });
+      }
     };
   }, [open, onClose]);
 

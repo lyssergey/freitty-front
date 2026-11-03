@@ -10,7 +10,7 @@ const variants: Record<IconButtonVariant, string> = {
   tiny: "size-[22px] rounded bg-surface-muted text-ink-subtle hover:bg-line hover:text-ink [&_svg]:size-3",
   /** Bare icon — table row actions (24px target that doesn't stretch a 20px text row). */
   plain:
-    "-my-0.5 size-6 rounded text-ink-faint hover:bg-surface-sunken hover:text-ink-soft [&_svg]:size-3.5",
+    "-my-0.5 size-6 rounded text-ink-muted hover:bg-surface-sunken hover:text-ink-soft [&_svg]:size-3.5",
 };
 
 export interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

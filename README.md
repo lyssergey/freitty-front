@@ -111,9 +111,12 @@ query keys by hand.
   search on the list keeps the filters on screen.
 - **Design tokens only.** Tailwind's default palette is disabled (`--color-*: initial`), so
   components can only use the mockup's tokens (`bg-surface`, `text-ink-muted`,
-  `bg-tone-purple text-tone-purple-ink`, …). Re-theming is a one-file edit. Text that carries
-  information meets WCAG AA (`ink-muted` at the lightest, `success-ink` / `attention` for green and
-  orange text); the faint greys are left to separators and decoration.
+  `bg-tone-purple text-tone-purple-ink`, …). Re-theming is a one-file edit. Grey and coloured text
+  that carries information meets WCAG AA (`ink-muted` at the lightest, `success-ink` / `attention`
+  for green and orange text) and icon buttons are `ink-muted` or darker; the faint greys are left
+  to separators and decoration. Known exceptions, kept from the mockup: the brand red `#ED1C2E`
+  (4.4:1 on white) on buttons and short values (refs, counts, spend, dock, assignee), "Top up →",
+  the amber "unpaid invoice" icon, avatar colours that come from the API, and dimmed drafts.
 - **Business time zone.** All dates render in `America/Toronto` with day-month order
   ("12 Apr, 09:00"), independent of the viewer's zone; it must match the API's `APP_TIMEZONE`.
   Parts come from `Intl` and are assembled by hand, avoiding locale quirks (en-GB "Sept").
@@ -154,6 +157,7 @@ typecheck, lint, format check, tests and a production build.
 1. Deploy `freitty-api` first and note its URL (e.g. `https://freitty-api.vercel.app`).
 2. Import this repo in Vercel (framework preset: Next.js, Node 24 — `engines.node` is `24.x`).
 3. Set the environment variable **`API_PROXY_TARGET`** to the API origin (no trailing slash) for
-   **both Production and Preview**: every Vercel build fails without it (`next.config.ts` refuses
-   to proxy to localhost). Rewrites are resolved at build time, so redeploy after changing it.
+   **both Production and Preview**: every Vercel build fails while it is unset (the default would
+   proxy to localhost). `next.config.ts` checks only that it is set, so don't import `.env.local`'s
+   localhost value. Rewrites are resolved at build time, so redeploy after changing it.
 4. Deploy. The app is served from the Vercel domain and proxies `/api/*` to the API.

@@ -53,8 +53,9 @@ function SearchField({
 
 /**
  * Topbar search. Submits to the order list: from any other page it searches all time
- * (`/orders?period=all&q=…`, not the list's default last 30 days); on the list itself it keeps
- * the filters on screen and mirrors the active query (remounted via `key` when the URL changes).
+ * (`/orders?period=all&q=…`, not the list's default last 30 days; an empty search just opens
+ * `/orders`); on the list itself it keeps the filters on screen and mirrors the active query
+ * (remounted via `key` when the URL changes).
  */
 export function SearchBox() {
   const router = useRouter();
@@ -65,7 +66,8 @@ export function SearchBox() {
 
   function onSearch(raw: string) {
     const q = normalizeSearch(raw);
-    router.push(ordersHref(current ? applyFilterChange(current, { q }) : { q, period: "all" }));
+    if (current) router.push(ordersHref(applyFilterChange(current, { q })));
+    else router.push(ordersHref(q ? { q, period: "all" } : {}));
   }
 
   return <SearchField key={current?.q ?? ""} defaultValue={current?.q} onSearch={onSearch} />;

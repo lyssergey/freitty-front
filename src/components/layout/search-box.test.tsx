@@ -33,6 +33,13 @@ describe("SearchBox", () => {
     expect(nav.push).toHaveBeenCalledWith("/orders?period=all&q=FR001500");
   });
 
+  it("opens the default list on an empty search outside it", async () => {
+    nav.pathname = "/dashboard";
+    nav.search = "";
+    await search("  ");
+    expect(nav.push).toHaveBeenCalledWith("/orders");
+  });
+
   it("keeps the list's own filters on /orders", async () => {
     nav.pathname = "/orders";
     nav.search = "hub=MAR&period=week&page=3";

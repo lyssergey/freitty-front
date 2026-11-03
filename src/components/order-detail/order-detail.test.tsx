@@ -116,6 +116,8 @@ describe("supplies", () => {
     expect(button("Edit Straps 12")).not.toBeInTheDocument();
     expect(button("Remove Straps 12")).not.toBeInTheDocument();
     expect(screen.queryByRole("columnheader", { name: "Action" })).not.toBeInTheDocument();
+    // The subtotal still points to the invoice.
+    expect(screen.getByText("→ Invoice line items")).toBeInTheDocument();
   });
 });
 

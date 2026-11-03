@@ -77,15 +77,28 @@ describe("AppShell mobile drawer", () => {
     expect(within(dialog).getByRole("button", { name: "New Order" })).toHaveFocus();
   });
 
+  it("gives the focus back to the hamburger on Escape", async () => {
+    stubDesktopQuery();
+    const { user, hamburger } = await openDrawer();
+
+    await user.keyboard("{Escape}");
+
+    expect(hamburger).toHaveAttribute("aria-expanded", "false");
+    expect(hamburger).toHaveFocus();
+  });
+
   it("closes when the window grows to the desktop layout", async () => {
     const media = stubDesktopQuery();
     const { hamburger } = await openDrawer();
+    // From `lg` on the hamburger is hidden and can't take the focus back.
+    vi.spyOn(hamburger, "focus").mockImplementation(() => {});
 
     act(() => media.growToDesktop());
 
     expect(hamburger).toHaveAttribute("aria-expanded", "false");
     expect(screen.getByRole("main").parentElement).not.toHaveAttribute("inert");
     expect(document.body.style.overflow).toBe("");
+    expect(screen.getByRole("main")).toHaveFocus();
     await waitFor(() => expect(screen.queryByRole("dialog")).not.toBeInTheDocument());
   });
 });
