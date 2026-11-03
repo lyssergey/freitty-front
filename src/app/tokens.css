@@ -1,0 +1,144 @@
+/*
+ * DESIGN TOKENS — the single place to change the look.
+ *
+ * Every colour of the Freitty client cabinet lives here as a Tailwind v4 theme variable, taken
+ * from the design mockup. Tailwind's default palette is switched off (`--color-*: initial`), so
+ * components can only use these tokens (`bg-surface`, `text-ink-muted`, `border-line`,
+ * `bg-tone-green text-tone-green-ink`, …) — never raw hex. Re-theming is a one-file edit.
+ */
+@theme {
+  --color-*: initial;
+
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  /* Surfaces (page → cards → recessed areas) */
+  --color-canvas: #f7f9fc;
+  --color-surface: #ffffff;
+  --color-surface-subtle: #f9fafb;
+  --color-surface-muted: #f0f2f5;
+  --color-surface-sunken: #f3f4f6;
+  --color-surface-slate: #f1f5f9;
+  --color-surface-zebra: #fafafb;
+
+  /* Borders / dividers */
+  --color-line: #e5e7eb;
+  --color-line-soft: #f3f4f6;
+  --color-line-strong: #d0d7de;
+  --color-line-cool: #e2e8f0;
+
+  /* Text (high → low emphasis). Informational text stops at ink-muted (AA on white and canvas;
+     ink-subtle on tinted fills); ink-faint is for decoration only (separators, arrows, icons). */
+  --color-ink: #1f2a3a;
+  --color-ink-soft: #374151;
+  --color-ink-subtle: #4b5563;
+  --color-ink-muted: #6b7280;
+  --color-ink-faint: #9ca3af;
+  --color-slate: #64748b;
+  --color-slate-ink: #475569;
+  --color-slate-faint: #94a3b8;
+
+  /* Brand — Freitty red */
+  --color-brand: #ed1c2e;
+  --color-brand-hover: #d81628;
+  --color-brand-strong: #b8142a;
+  --color-brand-soft: #fef2f2;
+  --color-brand-tint: #fee2e2;
+  --color-brand-line: #fecaca;
+  --color-brand-faint: #fffbfb;
+
+  /* Navy & blue accents */
+  --color-navy: #1f4e79;
+  --color-accent: #2e75b6;
+  --color-accent-strong: #2563eb;
+  --color-accent-soft: #eff6ff;
+
+  /* Sidebar (dark chrome) */
+  --color-sidebar: #1f2a3a;
+  --color-sidebar-ink: #b0b8c4;
+  --color-sidebar-active: rgb(46 117 182 / 0.15);
+  --color-sidebar-hover: rgb(255 255 255 / 0.05);
+  --color-sidebar-line: rgb(255 255 255 / 0.1);
+
+  /* Semantic */
+  --color-danger: #dc2626;
+  --color-danger-ink: #991b1b;
+  --color-danger-deep: #7f1d1d;
+  --color-success: #16a34a;
+  --color-success-strong: #059669;
+  --color-success-ink: #15803d; /* green small text (AA); `success` stays for icons, bars, big numbers */
+  --color-warning: #f59e0b;
+  --color-warning-soft: #fffbeb;
+  --color-warning-tint: #fef3c7;
+  --color-warning-line: #fde68a;
+  --color-warning-ink: #78350f;
+  --color-attention: #c2410c; /* orange text and the white-on-orange delta pills (AA) */
+  --color-attention-soft: #fff7ed;
+  --color-tip: #faf5ff;
+  --color-tip-line: #e9d5ff;
+  --color-tip-ink: #5b21b6;
+  --color-overlay: rgb(15 23 42 / 0.45);
+
+  /* Badge tones — background + matching ink */
+  --color-tone-gray: #e5e7eb;
+  --color-tone-gray-ink: #374151;
+  --color-tone-green: #d1fae5;
+  --color-tone-green-ink: #065f46;
+  --color-tone-lime: #dcfce7;
+  --color-tone-lime-ink: #166534;
+  --color-tone-blue: #dbeafe;
+  --color-tone-blue-ink: #1e40af;
+  --color-tone-sky: #e0f2fe;
+  --color-tone-sky-ink: #075985;
+  --color-tone-cyan: #cffafe;
+  --color-tone-cyan-ink: #155e75;
+  --color-tone-teal: #ccfbf1;
+  --color-tone-teal-ink: #115e59;
+  --color-tone-purple: #ede9fe;
+  --color-tone-purple-ink: #5b21b6;
+  --color-tone-red: #fee2e2;
+  --color-tone-red-ink: #991b1b;
+  --color-tone-rose: #fecaca;
+  --color-tone-rose-ink: #7f1d1d;
+  --color-tone-amber: #fef3c7;
+  --color-tone-amber-ink: #92400e;
+  --color-tone-orange: #fed7aa;
+  --color-tone-orange-ink: #9a3412;
+
+  /* Charts */
+  --color-chart-completed: #16a34a;
+  --color-chart-spend: #ed1c2e;
+  --color-chart-grid: #f1f5f9;
+  --color-chart-axis: #64748b;
+
+  /* Typography */
+  --font-sans:
+    var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  --text-micro: 0.5625rem; /* 9px  — role tags */
+  --text-micro--line-height: 0.875rem;
+  --text-3xs: 0.625rem; /* 10px — badges */
+  --text-3xs--line-height: 0.875rem;
+  --text-2xs: 0.6875rem; /* 11px — captions, labels */
+  --text-2xs--line-height: 1rem;
+  --text-body: 0.8125rem; /* 13px — tables, inputs */
+  --text-body--line-height: 1.25rem;
+  --text-md: 0.9375rem; /* 15px — order numbers */
+  --text-md--line-height: 1.375rem;
+  --text-title: 1.375rem; /* 22px — page titles */
+  --text-title--line-height: 1.875rem;
+  --text-stat: 1.75rem; /* 28px — quantity tiles */
+  --text-stat--line-height: 2.125rem;
+
+  /* Radii */
+  --radius-card: 0.625rem; /* 10px */
+
+  /* Shadows */
+  --shadow-panel: 0 1px 2px rgb(0 0 0 / 0.04);
+  --shadow-card-hover: 0 4px 12px rgb(31 78 121 / 0.08);
+  --shadow-popover: 0 10px 30px -10px rgb(31 42 58 / 0.25), 0 2px 6px rgb(31 42 58 / 0.06);
+  --shadow-toast: 0 12px 32px -12px rgb(15 23 42 / 0.45);
+
+  /* Layout */
+  --spacing-sidebar: 13.75rem; /* 220px */
+}
